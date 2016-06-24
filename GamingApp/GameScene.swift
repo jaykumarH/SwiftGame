@@ -47,6 +47,19 @@ class GameScene: SKScene {
                 mySprite.runAction(SKAction.repeatActionForever(sequence))
 
             }
+            if(touchedNode.name == "startgame")
+            {
+                
+                let mySprite: SKSpriteNode = childNodeWithName("startgame") as! SKSpriteNode
+                
+                let moveRight = SKAction.moveByX(0, y: -250, duration:1.0)
+                let rotateAction = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
+
+                let reversedMoveBottom = moveRight.reversedAction()
+                let sequence = SKAction.sequence([moveRight, reversedMoveBottom,rotateAction])
+                mySprite.runAction(SKAction.repeatActionForever(sequence))
+                
+            }
             
 
 //            let sprite = SKSpriteNode(imageNamed:"ball")
