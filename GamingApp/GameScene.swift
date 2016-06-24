@@ -11,39 +11,44 @@ import SpriteKit
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        backgroundColor = SKColor.blackColor()
+
         let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!"
-        myLabel.fontSize = 45
+        myLabel.text = "Try to hit me!"
+        myLabel.fontSize = 20
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        myLabel.name="hello"
+        myLabel.name="lblHit"
         self.addChild(myLabel)
+        
+        let playBall=SKSpriteNode(imageNamed: "ball")
+        playBall.position = CGPointMake(size.width/2,size.height)
+        playBall.name = "startgame"
+        addChild(playBall)
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
-        var touchedCount=0
 
         for touch in touches {
             let location = touch.locationInNode(self)
             let touchedNode = self.nodeAtPoint(location)
-            var xPos=0.0 as CGFloat
-            var yPos=90.0 as CGFloat
+            var xPos=150.0 as CGFloat
+            var yPos=0.0 as CGFloat
 
-            if(touchedNode.name == "lblDown")
+            if(touchedNode.name == "lblHit")
             {
-                touchedCount=touchedCount+1
-                let mySprite: SKLabelNode = childNodeWithName("lblDown") as! SKLabelNode
-//                var moveBottomLeft = SKAction.moveTo(CGPointMake(500,100), duration:2.0)
-//                mySprite.runAction(moveBottomLeft)
+ 
+                let mySprite: SKLabelNode = childNodeWithName("lblHit") as! SKLabelNode
                 
                 let moveRight = SKAction.moveByX(xPos, y: yPos, duration:1.0)
-//                mySprite.runAction(moveRight)
                 let reversedMoveBottom = moveRight.reversedAction()
                 let sequence = SKAction.sequence([moveRight, reversedMoveBottom])
                 mySprite.runAction(SKAction.repeatActionForever(sequence))
 
             }
             
+
 //            let sprite = SKSpriteNode(imageNamed:"ball")
 //            
 //            sprite.xScale = 0.5
