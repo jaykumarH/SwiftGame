@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		695D44221D24781E003B0029 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695D44211D24781E003B0029 /* GameOverScene.swift */; };
-		695D44241D247F3C003B0029 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 695D44231D247F3C003B0029 /* GameScene.sks */; };
 		69682EA11D1C2E1B0051A6E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69682EA01D1C2E1B0051A6E4 /* AppDelegate.swift */; };
 		69682EA51D1C2E1B0051A6E4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69682EA41D1C2E1B0051A6E4 /* GameScene.swift */; };
 		69682EA71D1C2E1B0051A6E4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69682EA61D1C2E1B0051A6E4 /* GameViewController.swift */; };
@@ -40,7 +39,6 @@
 
 /* Begin PBXFileReference section */
 		695D44211D24781E003B0029 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
-		695D44231D247F3C003B0029 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		69682E9D1D1C2E1B0051A6E4 /* GamingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69682EA01D1C2E1B0051A6E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69682EA41D1C2E1B0051A6E4 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				69B819721D2431A800C12A84 /* sounds */,
-				695D44231D247F3C003B0029 /* GameScene.sks */,
 				69682EA01D1C2E1B0051A6E4 /* AppDelegate.swift */,
 				695D44211D24781E003B0029 /* GameOverScene.swift */,
 				69682EA41D1C2E1B0051A6E4 /* GameScene.swift */,
@@ -256,7 +253,6 @@
 				69682EAF1D1C2E1B0051A6E4 /* LaunchScreen.storyboard in Resources */,
 				69682EAC1D1C2E1B0051A6E4 /* Assets.xcassets in Resources */,
 				69682EAA1D1C2E1B0051A6E4 /* Main.storyboard in Resources */,
-				695D44241D247F3C003B0029 /* GameScene.sks in Resources */,
 				69B819711D24314D00C12A84 /* pew-pew-lei.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
