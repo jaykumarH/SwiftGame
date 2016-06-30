@@ -17,7 +17,7 @@ class GameOverScene:GameScene
         backgroundColor = SKColor.whiteColor()
         
         let message = won ? "You Won!" : "Sorry ....You Lose!!!!"
-       
+        
         let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = message
         label.fontSize = 20
@@ -36,7 +36,6 @@ class GameOverScene:GameScene
             ]))
         
     }
-    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

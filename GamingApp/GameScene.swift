@@ -11,24 +11,32 @@ struct PhysicsCategory {
     static let All       : UInt32 = UInt32.max
     static let Enemy     : UInt32 = 0b1
     static let Player    : UInt32 = 0b10
-
+    static let winConditionNumber=10
 }
 
 import SpriteKit
 
 class GameScene: SKScene,SKPhysicsContactDelegate{
     var nodeTouched=SKSpriteNode()
-
+    var countOfEnemy=0
     override func didMoveToView(view: SKView)
     {
         /* Setup your scene here */
         backgroundColor = SKColor.blackColor()
         
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(GameScene.handlePanFrom(_:)))
+        self.view!.addGestureRecognizer(gestureRecognizer)
+        
         self.addPlayerNode()
+        
+        //setup physics
+        physicsWorld.gravity = CGVectorMake(0, 0)
+        physicsWorld.contactDelegate = self
+        
         runAction(SKAction.repeatActionForever(
             SKAction.sequence([
                 SKAction.runBlock(addEnemyNodes),
-                SKAction.waitForDuration(0.2)
+                SKAction.waitForDuration(0.3)
                 ])
             ))
         
@@ -41,13 +49,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             // Fallback on earlier versions
         }
         
-        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(GameScene.handlePanFrom(_:)))
-        self.view!.addGestureRecognizer(gestureRecognizer)
-        
-        //setup physics
-        physicsWorld.gravity = CGVectorMake(0, 0)
-        physicsWorld.contactDelegate = self
-        
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -57,15 +58,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     //
     // MARK: - Touch Delegates
     //
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
-//    {
-//        /* Called when a touch begins */
-//        
-//        for touch in touches {
-//            let location = touch.locationInNode(self)
-//            let touchedNode = self.nodeAtPoint(location)
-//        }
-//    }
+    //    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    //    {
+    //        /* Called when a touch begins */
+    //
+    //        for touch in touches {
+    //            let location = touch.locationInNode(self)
+    //            let touchedNode = self.nodeAtPoint(location)
+    //        }
+    //    }
     
     
     //
@@ -73,24 +74,26 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     //
     func addEnemyNodes()
     {
+        countOfEnemy += 1
+
         let nodeEnemy=SKSpriteNode(imageNamed: "enemy")
         nodeEnemy.name = "enemy"
         
-        nodeEnemy.physicsBody = SKPhysicsBody(rectangleOfSize:nodeEnemy.size)
+        nodeEnemy.physicsBody = SKPhysicsBody(circleOfRadius:nodeEnemy.size.width/2)
         nodeEnemy.physicsBody?.dynamic = true
         nodeEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Enemy
         nodeEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Player
         nodeEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None
         nodeEnemy.physicsBody?.usesPreciseCollisionDetection = true
         
-        // Determine where to spawn the monster along the X axis
+        // Determine where to move the enemy along the X axis
         let actualX = random(min: size.width - nodeEnemy.size.width/2, max: nodeEnemy.size.width/2)
         
-        // Position the monster slightly off-screen along the right edge,
-        // and along a random position along the Y axis as calculated above
+        // Position the enemy slightly off-screen along the top edge,
+        // and along a random position along the X axis as calculated above
         nodeEnemy.position = CGPoint(x: actualX, y: size.height + nodeEnemy.size.height/2)
         
-        // Add the monster to the scene
+        // Add the enemy to the scene
         addChild(nodeEnemy)
         
         // Determine speed of the enemy
@@ -99,7 +102,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         // Create the actions
         let actionMove = SKAction.moveTo(CGPoint(x:actualX, y: -nodeEnemy.size.height/2), duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
-        nodeEnemy.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+        if countOfEnemy>PhysicsCategory.winConditionNumber
+        {
+            let winAction = SKAction.runBlock() {
+                let reveal = SKTransition.flipVerticalWithDuration(0.5)
+                let gameOverScene = GameOverScene(size: self.size, won: true)
+                self.view?.presentScene(gameOverScene, transition: reveal)
+            }
+            nodeEnemy.runAction(SKAction.sequence([actionMove, winAction, actionMoveDone]))
+        }
+        else
+        {
+            nodeEnemy.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+        }
         
     }
     func addPlayerNode()
@@ -108,7 +123,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         nodePlayer.position = CGPointMake(size.width/2,size.height*0.1)
         nodePlayer.name = "player"
         
-        nodePlayer.physicsBody = SKPhysicsBody(rectangleOfSize: nodePlayer.size)
+        nodePlayer.physicsBody = SKPhysicsBody(circleOfRadius:nodePlayer.size.width)
         nodePlayer.physicsBody?.dynamic = true
         nodePlayer.physicsBody?.categoryBitMask = PhysicsCategory.Player
         nodePlayer.physicsBody?.contactTestBitMask = PhysicsCategory.Enemy
@@ -130,7 +145,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         return CGFloat(Double(degree) / 180.0 * M_PI)
     }
     
-   
+    
     //MARK: - Gesture Handlers
     //
     func handlePanFrom(recognizer: UIPanGestureRecognizer)
@@ -167,17 +182,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     //
     func enemyDidCollideWithPlayer(enemy:SKSpriteNode, player:SKSpriteNode) {
         print("Hit")
+        
+        let removeAllAction=SKAction.removeFromParent()
+        self.scene?.removeFromParent()
+
         let loseAction = SKAction.runBlock() {
             let reveal = SKTransition.flipVerticalWithDuration(0.5)
             let gameOverScene = GameOverScene(size: self.size, won: false)
             self.view?.presentScene(gameOverScene, transition: reveal)
         }
-    
+        
         runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-        runAction(SKAction.sequence([loseAction]))
-//        SKAction.removeFromParent()
-//        enemy.removeFromParent()
-//        player.removeFromParent()
+        runAction(SKAction.sequence([loseAction,removeAllAction]))
+        
+        //        SKAction.removeFromParent()
+        //        enemy.removeFromParent()
+        //        player.removeFromParent()
     }
     func didBeginContact(contact: SKPhysicsContact) {
         
