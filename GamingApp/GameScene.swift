@@ -194,10 +194,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
         runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
         runAction(SKAction.sequence([loseAction,removeAllAction]))
-        
-        //        SKAction.removeFromParent()
-        //        enemy.removeFromParent()
-        //        player.removeFromParent()
+
     }
     func didBeginContact(contact: SKPhysicsContact) {
         
