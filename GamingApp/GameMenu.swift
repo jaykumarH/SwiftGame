@@ -1,39 +1,42 @@
 //
-//  GameOverScene.swift
+//  GameMenu.swift
 //  GamingApp
 //
-//  Created by Jay on 2016-06-29.
+//  Created by Jay on 2016-07-04.
 //  Copyright © 2016 Jay. All rights reserved.
 //
 
+import Foundation
+
 import SpriteKit
 
-class GameOverScene:SKScene
+class GameMenu:SKScene
 {
-    init(size: CGSize, won:Bool)
+    override init(size: CGSize)
     {
         super.init(size: size)
         
         backgroundColor = SKColor.blackColor()
         
-        let message = won ? "You Won!" : "Sorry ....You Lose!!!!"
+        let message = "Ghost Busters"
+        let instructions="Move the player horizontally to shoot the ghost!!"
         
         let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = message
         label.fontSize = 20
-        if won
-        {
-            label.fontColor = SKColor.whiteColor()
-        }
-        else
-        {
-            label.fontColor = SKColor.redColor()
-        }
+        label.fontColor = SKColor.yellowColor()
         label.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(label)
         
+        let subLabel=SKLabelNode(fontNamed:"Helvetica")
+        subLabel.text=instructions
+        subLabel.fontSize=12
+        subLabel.fontColor=SKColor.whiteColor()
+        subLabel.position=CGPoint(x:size.width/2,y: label.position.y-30)
+        addChild(subLabel)
+        
         runAction(SKAction.sequence([
-            SKAction.waitForDuration(5.0),
+            SKAction.waitForDuration(2.0),
             SKAction.runBlock() {
                 
                 let reveal = SKTransition.flipVerticalWithDuration(0.5)

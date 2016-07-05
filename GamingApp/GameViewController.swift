@@ -13,7 +13,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scene = GameScene(size: view.bounds.size)
+        let scene = GameMenu(size: view.bounds.size)
         let skView = self.view as! SKView
         skView.showsFPS = false
         skView.showsNodeCount = false
@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
         scene.scaleMode = .ResizeFill
         skView.presentScene(scene)
     }
-        
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.

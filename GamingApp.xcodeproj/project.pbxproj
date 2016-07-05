@@ -18,6 +18,7 @@
 		69682EC51D1C2E1B0051A6E4 /* GamingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69682EC41D1C2E1B0051A6E4 /* GamingAppUITests.swift */; };
 		69B819701D24314D00C12A84 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 69B8196E1D24314D00C12A84 /* background-music-aac.caf */; };
 		69B819711D24314D00C12A84 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 69B8196F1D24314D00C12A84 /* pew-pew-lei.caf */; };
+		69E687D71D2B418A00D5A674 /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E687D61D2B418A00D5A674 /* GameMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		69682EC61D1C2E1B0051A6E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69B8196E1D24314D00C12A84 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		69B8196F1D24314D00C12A84 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
+		69E687D61D2B418A00D5A674 /* GameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,11 +109,12 @@
 			children = (
 				69B819721D2431A800C12A84 /* sounds */,
 				69682EA01D1C2E1B0051A6E4 /* AppDelegate.swift */,
-				695D44211D24781E003B0029 /* GameOverScene.swift */,
-				69682EA41D1C2E1B0051A6E4 /* GameScene.swift */,
 				69682EA61D1C2E1B0051A6E4 /* GameViewController.swift */,
-				69682EA81D1C2E1B0051A6E4 /* Main.storyboard */,
+				69E687D61D2B418A00D5A674 /* GameMenu.swift */,
+				69682EA41D1C2E1B0051A6E4 /* GameScene.swift */,
+				695D44211D24781E003B0029 /* GameOverScene.swift */,
 				69682EAB1D1C2E1B0051A6E4 /* Assets.xcassets */,
+				69682EA81D1C2E1B0051A6E4 /* Main.storyboard */,
 				69682EAD1D1C2E1B0051A6E4 /* LaunchScreen.storyboard */,
 				69682EB01D1C2E1B0051A6E4 /* Info.plist */,
 			);
@@ -279,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69682EA51D1C2E1B0051A6E4 /* GameScene.swift in Sources */,
+				69E687D71D2B418A00D5A674 /* GameMenu.swift in Sources */,
 				69682EA71D1C2E1B0051A6E4 /* GameViewController.swift in Sources */,
 				695D44221D24781E003B0029 /* GameOverScene.swift in Sources */,
 				69682EA11D1C2E1B0051A6E4 /* AppDelegate.swift in Sources */,
