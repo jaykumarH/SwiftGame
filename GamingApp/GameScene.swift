@@ -55,8 +55,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             
         } else {
             // Fallback on earlier versions
+            runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("background-music-aac.caf", waitForCompletion: false)))
+            
         }
-        
     }
     
     override func update(currentTime: CFTimeInterval) {
@@ -113,7 +114,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
         // Create the actions
         let actionMove = SKAction.moveTo(CGPoint(x:actualX, y: -nodeEnemy.size.height/2), duration: NSTimeInterval(actualDuration))
-
+        let actionRotate=SKAction.rotateByAngle(5, duration: 5)
+        let actionRotateReverse=SKAction.rotateByAngle(-5, duration: -5)
+        let actionGroup=SKAction.group([actionRotate,actionRotateReverse])
+        nodeEnemy.runAction(actionGroup)
+        
         let actionMoveDone = SKAction.removeFromParent()
         if countOfEnemy>PhysicsCategory.winConditionNumber
         {
